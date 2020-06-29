@@ -1,0 +1,27 @@
+{
+    "name": "j-frauenholz/twig-encore-extension",
+    "description": "Twig Extension to use entrypoints.json in Twig Templates",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "symfony/webpack-encore-bundle": "^1.7",
+        "twig/twig": "^1.42.5 || ^2.12.5 || ^3.0.3"
+    },
+
+    "license": "propriatary",
+    "authors": [
+        {
+            "name": "Julian Frauenholz",
+            "email": "frauenholz@mehrkanal.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Mehrkanal\\EncoreTwigExtension\\": "src/"
+        }
+    }
+}
