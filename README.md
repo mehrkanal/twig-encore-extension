@@ -27,6 +27,7 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
  Use in combination with setEntry of Encore Webpack Config.
  
  ## Useful links:
+ * [Original Code](https://github.com/symfony/webpack-encore-bundle/blob/master/src/Twig/EntryFilesTwigExtension.php) 
  * https://symfony.com/doc/current/frontend/encore/installation.html
  * https://gitlab.mehrkanal.com/mehrkanal/baseapp.git
 

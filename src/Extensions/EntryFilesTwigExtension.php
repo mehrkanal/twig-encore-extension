@@ -2,7 +2,6 @@
 
 namespace Mehrkanal\EncoreTwigExtension\Extensions;
 
-
 use Symfony\Contracts\Service\ResetInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Symfony\WebpackEncoreBundle\Asset\IntegrityDataProviderInterface;
@@ -13,11 +12,14 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
 {
     private $renderedFiles = [];
 
-    /** @var EntrypointLookup */
+    /**
+     * @var EntrypointLookup
+     */
     private $entryPoints;
 
     /**
      * ReplacerTwigExtension constructor.
+     *
      * @param EntrypointLookup $entryPoints
      */
     public function __construct(EntrypointLookup $entryPoints)
@@ -39,6 +41,11 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
     {
         return $this->getEntrypointLookup()
             ->getJavaScriptFiles($entryName);
+    }
+
+    public function getEntrypointLookup()
+    {
+        return $this->entryPoints;
     }
 
     public function getWebpackCssFiles(string $entryName): array
@@ -74,6 +81,25 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
         return implode('', $scriptTags);
     }
 
+    private function getAssetPath(string $assetPath): string
+    {
+        return $assetPath;
+    }
+
+    private function convertArrayToAttributes(array $attributesMap): string
+    {
+        return implode(
+            ' ',
+            array_map(
+                function ($key, $value) {
+                    return sprintf('%s="%s"', $key, htmlentities($value));
+                },
+                array_keys($attributesMap),
+                $attributesMap
+            )
+        );
+    }
+
     public function renderWebpackLinkTags(string $entryName): string
     {
         $scriptTags = [];
@@ -102,11 +128,6 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
         return implode('', $scriptTags);
     }
 
-    public function getEntrypointLookup()
-    {
-        return $this->entryPoints;
-    }
-
     public function reset()
     {
         $this->renderedFiles = [
@@ -114,21 +135,4 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
             'styles' => [],
         ];
     }
-
-    private function getAssetPath(string $assetPath): string
-    {
-        return $assetPath;
-    }
-
-    private function convertArrayToAttributes(array $attributesMap): string
-    {
-        return implode(' ', array_map(
-            function ($key, $value) {
-                return sprintf('%s="%s"', $key, htmlentities($value));
-            },
-            array_keys($attributesMap),
-            $attributesMap
-        ));
-    }
 }
-
