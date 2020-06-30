@@ -13,7 +13,7 @@ lint:7.4:
     - docker
     - dind
 
-Install Composer dependencies:
+Composer dependencies:
   stage: build-dependencies
   dependencies: []
   image: registry.mehrkanal.com/docker/phpx/cli:7.4-build

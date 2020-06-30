@@ -7,8 +7,16 @@
         "symfony/webpack-encore-bundle": "^1.7",
         "twig/twig": "^1.42.5 || ^2.12.5 || ^3.0.3"
     },
-
-    "license": "propriatary",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packageserver-mehrkanal.testmk2.com"
+    }
+  ],
+"require-dev": {
+  "mehrkanal/editorconfig": "dev-master"
+},
+  "license": "propriatary",
     "authors": [
         {
             "name": "Julian Frauenholz",
@@ -23,5 +31,14 @@
         "psr-4": {
             "Mehrkanal\\EncoreTwigExtension\\": "src/"
         }
-    }
+    },
+  "scripts": {
+    "copy-editor-config": "[ -f vendor/mehrkanal/editorconfig/.editorconfig ] && cp vendor/mehrkanal/editorconfig/.editorconfig . || exit 0",
+    "post-install-cmd": [
+      "@copy-editor-config"
+    ],
+    "post-update-cmd": [
+      "@copy-editor-config"
+    ]
+  }
 }
