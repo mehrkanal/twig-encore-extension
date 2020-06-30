@@ -1,0 +1,56 @@
+stages:
+  - build-dependencies
+  - tests
+  - packageserver
+
+lint:7.4:
+  dependencies: []
+  stage: build-dependencies
+  image: php:7.4
+  script:
+    - find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+  tags:
+    - docker
+    - dind
+
+Install Composer dependencies:
+  stage: build-dependencies
+  dependencies: []
+  image: registry.mehrkanal.com/docker/phpx/cli:7.4-build
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - composer install --prefer-dist
+  artifacts:
+    expire_in: 3 days
+    paths:
+      - vendor/
+  cache:
+    paths:
+      - vendor/
+
+Code Style Checks:
+  dependencies: ["Composer dependencies"]
+  stage: tests
+  image: registry.mehrkanal.com/docker/phpx/cli:7.4-build
+  script:
+    - composer run phpcs
+  tags:
+    - docker
+    - dind
+
+Update Packageserver:
+  stage: update-packageserver
+  variables:
+    packagename: git@gitlab.mehrkanal.com:$CI_PROJECT_PATH.git
+  trigger:
+    project: mehrkanal/packageserver
+    branch: master
+    strategy: depend
+  only:
+    - develop
+    - master
+    - tags
+    - /^release\/.*$/
