@@ -1,5 +1,5 @@
 {
-    "name": "j-frauenholz/twig-encore-extension",
+    "name": "mehrkanal/twig-encore-extension",
     "description": "Twig Extension to use entrypoints.json in Twig Templates",
     "type": "library",
     "require": {
