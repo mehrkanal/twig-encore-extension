@@ -34,8 +34,19 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
             new TwigFunction('encore_entry_css_files', [$this, 'getWebpackCssFiles']),
             new TwigFunction('encore_entry_script_tags', [$this, 'renderWebpackScriptTags'], ['is_safe' => ['html']]),
             new TwigFunction('encore_entry_link_tags', [$this, 'renderWebpackLinkTags'], ['is_safe' => ['html']]),
+            new TwigFunction('encore_get_css_source', [$this, 'getCssSourceFromEntrypoint'], ['is_safe' => ['html']]),
         ];
     }
+
+    public function getCssSourceFromEntrypoint(string $directory, string $entryName): string
+    {
+        $content = '';
+        foreach ($this->getWebpackCssFiles($entryName) as $cssFile) {
+            $content .= file_get_contents($directory . $cssFile);
+        }
+        return $content;
+    }
+
 
     public function getWebpackJsFiles(string $entryName): array
     {
