@@ -38,11 +38,11 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
         ];
     }
 
-    public function getCssSourceFromEntrypoint(string $directory, string $entryName): string
+    public function getCssSourceFromEntrypoint(string $entryName): string
     {
         $content = '';
         foreach ($this->getWebpackCssFiles($entryName) as $cssFile) {
-            $content .= file_get_contents($directory . $cssFile);
+            $content .= file_get_contents($_SERVER['DOCUMENT_ROOT'] . $cssFile);
         }
         return $content;
     }
