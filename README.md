@@ -23,11 +23,12 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
 * Use Encore NodeJS Scripts to automatically generate assets
 * Use ``encore_entry_link_tags(<entrypoint>)`` function to get all required stylesheet link tags
 * Use ``encore_entry_script_tags(<entrypoint>)`` function to get all required script tags
+* Use ``encore_get_css_source('/app/public/', <entrypoint>)`` function to get all CSS
 
  Use in combination with setEntry of Encore Webpack Config.
  
  ## Useful links:
  * [Original Code](https://github.com/symfony/webpack-encore-bundle/blob/master/src/Twig/EntryFilesTwigExtension.php) 
  * https://symfony.com/doc/current/frontend/encore/installation.html
- * https://gitlab.mehrkanal.com/mehrkanal/baseapp.git
+ * https://gitlab.mehrkanal.com/mehrkanal/skeleton.git
 
