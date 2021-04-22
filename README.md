@@ -12,12 +12,23 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
         * i.e. `setPublicPath('/assets')`
 1. Make sure to configure `twig.asset_url` to the public path
     * Best be set to: ``/assets/``
-    * If unconfigured: The path will be `<DOCUMENT_ROOT>/entrypoints.json`
-    * Otherwise it is `<DOCUMENTROOT><asset_url>entrypoints.json` 
+    * If is not configured: The path will be `<DOCUMENT_ROOT>/entrypoints.json`
+    * Otherwise, it is `<DOCUMENTROOT><asset_url>entrypoints.json` 
         * Note: A Forward Slash is appended after asset_url in case the preceding path does not end on a fordward slash
             * i.e. asset_path is `/assets` the url will be `<document_root>/assets/entrypoints.json`
 1. Include `Mehrkanal\EncoreTwigExtension\ConfigProvider::class` into your global config
 1. Include `Mehrkanal\EncoreTwigExtension\Extensions\EntryFilesTwigExtension:class` to your twig extensions config.
+
+```php
+require_once 'vendor/autoload.php';
+
+$loader = new FilesystemLoader('./templates');
+$twig = new Environment($loader, [
+	'debug' => true
+]);
+
+$twig->addExtension(new EntryFilesTwigExtension(new EntrypointLookup('./public/build/entrypoints.json')));
+```
 
 ## What can I do now?
 * Use Encore NodeJS Scripts to automatically generate assets
