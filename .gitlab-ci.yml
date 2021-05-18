@@ -3,10 +3,10 @@ stages:
   - tests
   - update-packageserver
 
-lint:7.4:
+lint:8.0:
   dependencies: []
   stage: build-dependencies
-  image: php:7.4
+  image: php:8.0
   script:
     - find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
   tags:
@@ -16,7 +16,7 @@ lint:7.4:
 Composer dependencies:
   stage: build-dependencies
   dependencies: []
-  image: registry.mehrkanal.com/docker/phpx/cli:7.4-build
+  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
   script:
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
@@ -34,7 +34,7 @@ Composer dependencies:
 Code Style Checks:
   dependencies: ["Composer dependencies"]
   stage: tests
-  image: registry.mehrkanal.com/docker/phpx/cli:7.4-build
+  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
   script:
     - composer run phpcs
   tags:
