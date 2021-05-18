@@ -17,7 +17,7 @@
     "mehrkanal/editorconfig": "dev-master",
     "squizlabs/php_codesniffer": "^3.2"
   },
-  "license": "propriatary",
+  "license": "GPL-3.0-or-later",
   "authors": [
     {
       "name": "Julian Frauenholz",
