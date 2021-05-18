@@ -22,7 +22,7 @@ class EntryPointLookupFactory
         return new EntrypointLookup($path);
     }
 
-    private function endsWith($haystack, $needle)
+    private function endsWith(string $haystack, string $needle): bool
     {
         $length = strlen($needle);
         if ($length == 0) {
