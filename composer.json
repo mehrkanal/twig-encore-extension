@@ -3,7 +3,7 @@
   "description": "Twig Extension to use entrypoints.json in Twig Templates",
   "type": "library",
   "require": {
-    "php": "^7.1",
+    "php": "^8.0",
     "symfony/webpack-encore-bundle": "^1.7",
     "twig/twig": "^1.42.5 || ^2.12.5 || ^3.0.3"
   },
@@ -15,7 +15,8 @@
   ],
   "require-dev": {
     "mehrkanal/editorconfig": "dev-master",
-    "squizlabs/php_codesniffer": "^3.2"
+    "squizlabs/php_codesniffer": "^3.2",
+    "phpstan/phpstan": "^0.12.0"
   },
   "license": "GPL-3.0-or-later",
   "authors": [
@@ -36,6 +37,7 @@
   "scripts": {
     "phpcs": "phpcs -ns --report=full src/",
     "phpcs-fix": "phpcbf src/",
+    "stan": "phpstan analyse -c phpstan.neon --no-progress -n --ansi ./src/",
     "copy-editor-config": "[ -f vendor/mehrkanal/editorconfig/.editorconfig ] && cp vendor/mehrkanal/editorconfig/.editorconfig . || exit 0",
     "post-install-cmd": [
       "@copy-editor-config"

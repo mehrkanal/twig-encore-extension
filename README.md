@@ -37,7 +37,19 @@ $twig->addExtension(new EntryFilesTwigExtension(new EntrypointLookup('./public/b
 * Use ``encore_get_css_source('/app/public/', <entrypoint>)`` function to get all CSS
 
  Use in combination with setEntry of Encore Webpack Config.
- 
+
+
+## Stan
+
+```shell
+docker run -it -v $PWD:/app -v composer:/root/.composer -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e SSH_AGENT_PID=$SSH_AGENT_PID registry.mehrkanal.com/docker/phpx/cli:8.0-build bash
+
+composer up
+composer run stan
+composer run phpcs-fix
+```
+
+
  ## Useful links:
  * [Original Code](https://github.com/symfony/webpack-encore-bundle/blob/master/src/Twig/EntryFilesTwigExtension.php) 
  * https://symfony.com/doc/current/frontend/encore/installation.html
