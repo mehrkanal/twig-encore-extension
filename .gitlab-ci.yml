@@ -6,7 +6,7 @@ stages:
 lint:8.0:
   dependencies: []
   stage: build-dependencies
-  image: php:7.4
+  image: php:8.0
   script:
     - find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
   tags:
