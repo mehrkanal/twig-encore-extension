@@ -3,7 +3,7 @@
 namespace Mehrkanal\EncoreTwigExtension\Extensions;
 
 use Symfony\Contracts\Service\ResetInterface;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -11,9 +11,9 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
 {
     private array $renderedFiles = [];
 
-    private EntrypointLookup $entryPoints;
+    private EntrypointLookupInterface $entryPoints;
 
-    public function __construct(EntrypointLookup $entryPoints)
+    public function __construct(EntrypointLookupInterface $entryPoints)
     {
         $this->entryPoints = $entryPoints;
     }
@@ -45,7 +45,7 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
             ->getJavaScriptFiles($entryName);
     }
 
-    public function getEntrypointLookup(): EntrypointLookup
+    public function getEntrypointLookup(): EntrypointLookupInterface
     {
         return $this->entryPoints;
     }
