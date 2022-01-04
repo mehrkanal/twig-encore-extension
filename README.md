@@ -1,4 +1,4 @@
-# Twig Encore Extension
+# Twig and Webpack Encore Extension for Laminas
 
 To use with `twig/twig` and `symfony/webpack-encore-bundle`
 

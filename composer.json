@@ -7,12 +7,6 @@
     "symfony/webpack-encore-bundle": "^1.7",
     "twig/twig": "^1.42.5 || ^2.12.5 || ^3.0.3"
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packageserver-mehrkanal.testmk2.com"
-    }
-  ],
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.6",
     "phpstan/phpstan": "^0.12.0"
