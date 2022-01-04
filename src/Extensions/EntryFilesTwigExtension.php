@@ -4,24 +4,15 @@ namespace Mehrkanal\EncoreTwigExtension\Extensions;
 
 use Symfony\Contracts\Service\ResetInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
-use Symfony\WebpackEncoreBundle\Asset\IntegrityDataProviderInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class EntryFilesTwigExtension extends AbstractExtension implements ResetInterface
 {
-    private $renderedFiles = [];
+    private array $renderedFiles = [];
 
-    /**
-     * @var EntrypointLookup
-     */
-    private $entryPoints;
+    private EntrypointLookup $entryPoints;
 
-    /**
-     * ReplacerTwigExtension constructor.
-     *
-     * @param EntrypointLookup $entryPoints
-     */
     public function __construct(EntrypointLookup $entryPoints)
     {
         $this->entryPoints = $entryPoints;
@@ -54,7 +45,7 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
             ->getJavaScriptFiles($entryName);
     }
 
-    public function getEntrypointLookup()
+    public function getEntrypointLookup(): EntrypointLookup
     {
         return $this->entryPoints;
     }
@@ -71,9 +62,7 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
     {
         $scriptTags = [];
         $entryPointLookup = $this->getEntrypointLookup();
-        $integrityHashes = ($entryPointLookup instanceof IntegrityDataProviderInterface)
-            ? $entryPointLookup->getIntegrityData()
-            : [];
+        $integrityHashes = $entryPointLookup->getIntegrityData();
 
         foreach ($entryPointLookup->getJavaScriptFiles($entryName) as $filename) {
             $attributes = [];
@@ -117,9 +106,7 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
     {
         $scriptTags = [];
         $entryPointLookup = $this->getEntrypointLookup();
-        $integrityHashes = ($entryPointLookup instanceof IntegrityDataProviderInterface)
-            ? $entryPointLookup->getIntegrityData()
-            : [];
+        $integrityHashes = $entryPointLookup->getIntegrityData();
 
         foreach ($entryPointLookup->getCssFiles($entryName) as $filename) {
             $attributes = [];
@@ -141,7 +128,7 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
         return implode('', $scriptTags);
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->renderedFiles = [
             'scripts' => [],
