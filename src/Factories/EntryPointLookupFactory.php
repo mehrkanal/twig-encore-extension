@@ -14,7 +14,7 @@ class EntryPointLookupFactory
 
         $path = $_SERVER['DOCUMENT_ROOT'];
         $path .= $config['twig']['assets_url'] ?? '';
-        if (!$this->endsWith($path, '/')) {
+        if (! $this->endsWith($path, '/')) {
             $path .= '/';
         }
         $path .= 'entrypoints.json';
@@ -25,10 +25,10 @@ class EntryPointLookupFactory
     private function endsWith(string $haystack, string $needle): bool
     {
         $length = strlen($needle);
-        if ($length == 0) {
+        if ($length === 0) {
             return true;
         }
 
-        return (substr($haystack, -$length) === $needle);
+        return substr($haystack, -$length) === $needle;
     }
 }
