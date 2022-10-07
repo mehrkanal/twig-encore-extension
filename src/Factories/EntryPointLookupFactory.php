@@ -17,7 +17,7 @@ class EntryPointLookupFactory
 
         $path = $_SERVER['DOCUMENT_ROOT'];
         $path .= $config['twig']['assets_url'] ?? '';
-        if (!$this->endsWithSlash($path)) {
+        if (! $this->endsWithSlash($path)) {
             $path .= self::DIRECTORY_SEPERATOR;
         }
         $path .= self::ENTRYPOINTS_JSON;
