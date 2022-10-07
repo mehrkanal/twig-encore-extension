@@ -36,7 +36,7 @@ Code Style Checks:
   stage: tests
   image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
   script:
-    - composer run ecs
+    - vendor/bin/ecs
   tags:
     - docker
     - dind
