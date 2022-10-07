@@ -1,12 +1,7 @@
 <?php
-/** @noinspection SlowArrayOperationsInLoopInspection */
 
 namespace Mehrkanal\EncoreTwigExtension\Extensions;
 
-use Symfony\Component\Asset\Package;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
@@ -15,15 +10,10 @@ use Twig\TwigFunction;
 
 class EntryFilesTwigExtension extends AbstractExtension
 {
-    protected array $defaultAttributes = [];
-    /* https://github.com/symfony/recipes/blob/6f4230fd1081f5d5a1e9b5303c3a8d9e2e1b0691/symfony/webpack-encore-bundle/1.9/config/packages/webpack_encore.yaml#L8 */
-    protected array $defaultLinkAttributes = ['defer' => true];
-    protected array $defaultScriptAttributes = [];
-    private array $renderedFiles;
 
     public function __construct(
         private EntrypointLookup $entryPoints,
-        private ?EventDispatcherInterface $eventDispatcher = null
+        private TagRenderer $tagRenderer
     ) {
     }
 
@@ -89,21 +79,6 @@ class EntryFilesTwigExtension extends AbstractExtension
 
     private function getTagRenderer(): TagRenderer
     {
-        $packages = new Packages(
-            new Package(
-                new JsonManifestVersionStrategy(
-                    __DIR__ . '/../../../../../public/assets/manifest.json'
-                )
-            )
-        );
-
-        return new TagRenderer(
-            $this->entryPoints,
-            $packages,
-            $this->defaultAttributes,
-            $this->defaultScriptAttributes,
-            $this->defaultLinkAttributes,
-            $this->eventDispatcher
-        );
+        return $this->tagRenderer;
     }
 }
