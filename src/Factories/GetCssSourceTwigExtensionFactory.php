@@ -10,8 +10,6 @@ class GetCssSourceTwigExtensionFactory
 {
     public function __invoke(ContainerInterface $container): GetCssSourceTwigExtension
     {
-        return new GetCssSourceTwigExtension(
-            $container->get(EntrypointLookup::class)
-        );
+        return new GetCssSourceTwigExtension($container->get(EntrypointLookup::class));
     }
 }
