@@ -1,7 +1,7 @@
 stages:
   - build-dependencies
   - tests
-  - update-packageserver
+  - publish
 
 lint:8.0:
   dependencies: []
@@ -36,21 +36,20 @@ Code Style Checks:
   stage: tests
   image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
   script:
-    - composer run phpcs
+    - composer run ecs
   tags:
     - docker
     - dind
 
-Update Packageserver:
-  stage: update-packageserver
+Publish Composer package:
+  stage: publish
   variables:
     packagename: git@gitlab.mehrkanal.com:$CI_PROJECT_PATH.git
   trigger:
     project: mehrkanal/packageserver
     branch: master
     strategy: depend
-  only:
-    - develop
-    - master
-    - tags
-    - /^release\/.*$/
+
+  rules:
+    - if: '$CI_COMMIT_TAG'
+    - when: never
