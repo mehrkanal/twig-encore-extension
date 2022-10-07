@@ -6,8 +6,6 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 
