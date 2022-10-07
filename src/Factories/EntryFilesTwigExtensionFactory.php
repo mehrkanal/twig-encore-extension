@@ -8,8 +8,8 @@ use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 
 class EntryFilesTwigExtensionFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): EntryFilesTwigExtension
     {
-        return new EntryFilesTwigExtension($container->get(EntrypointLookup::class));
+        return new EntryFilesTwigExtension($container->get(EntrypointLookup::class),null);
     }
 }
