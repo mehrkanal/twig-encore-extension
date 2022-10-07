@@ -22,7 +22,7 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
 1. Include `Mehrkanal\EncoreTwigExtension\Extensions\EntryFilesTwigExtension:class` to your twig extensions config.
 
 ```php
-use Mehrkanal\EncoreTwigExtension\Extensions\EntryFilesTwigExtension;
+use Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -34,7 +34,7 @@ $twig = new Environment($loader, [
 	'debug' => true
 ]);
 
-$twig->addExtension(new EntryFilesTwigExtension(new EntrypointLookup('./public/build/entrypoints.json')));
+$twig->addExtension(new GetCssSourceTwigExtension(new EntrypointLookup('./public/build/entrypoints.json')));
 ```
 
 ## What can I do now?
