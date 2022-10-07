@@ -8,7 +8,6 @@ use Twig\TwigFunction;
 
 class GetCssSourceTwigExtension extends AbstractExtension
 {
-
     public function __construct(
         private EntrypointLookup $entryPoints,
     ) {

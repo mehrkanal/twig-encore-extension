@@ -19,7 +19,8 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
         * Note: A Forward Slash is appended after asset_url in case the preceding path does not end on a forward slash
         * i.e. asset_path is `/assets` the url will be `<document_root>/assets/entrypoints.json`
 1. Include `Mehrkanal\EncoreTwigExtension\ConfigProvider::class` into your global config
-1. Include `Mehrkanal\EncoreTwigExtension\Extensions\EntryFilesTwigExtension:class` to your twig extensions config.
+1. Include `Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension:class` to your twig extensions config.
+1. Include `Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension:class` to your twig extensions config.
 
 ```php
 use Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension;
@@ -49,11 +50,11 @@ Use in combination with setEntry of Encore Webpack Config.
 ## Stan
 
 ```shell
-docker run -it -v $PWD:/app -v composer:/root/.composer -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e SSH_AGENT_PID=$SSH_AGENT_PID registry.mehrkanal.com/docker/phpx/cli:8.0-build bash
+docker run -it -v $PWD:/app -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e SSH_AGENT_PID=$SSH_AGENT_PID registry.mehrkanal.com/docker/phpx/cli:8.0-build bash
 
 composer up
 composer run stan
-composer run phpcs-fix
+composer run cs
 ```
 
 ## Useful links:
