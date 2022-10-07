@@ -3,3 +3,5 @@ parameters:
     inferPrivatePropertyTypeFromConstructor: true
     checkGenericClassInNonGenericObjectType: false
     level: 6
+    paths:
+        - ./src/

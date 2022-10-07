@@ -1,0 +1,31 @@
+<?php
+
+// Example
+use Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension;
+use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
+
+return [
+    'twig' => [
+        'autoescape' => 'html', // Auto-escaping strategy [html|js|css|url|false]
+        'cache_dir' => '/tmp/cache/twig_cache',
+        'assets_url' => '/assets/', // für entrypoints.json
+        'assets_version' => '1.1',
+        'extensions' => [
+            // extension service names or instances
+            EntryFilesTwigExtension::class,
+            GetCssSourceTwigExtension::class,
+        ],
+
+        'globals' => [
+            'debug' => false,
+            'APPLICATION_ENV' => getenv('APPLICATION_ENV'),
+            'ga_tracking' => 'UA-XXXXX-X',
+        ],
+
+        'runtime_loaders' => [
+            // runtime loader names or instances
+        ],
+        // über config.php 'timezone' => 'Europe/Berlin',
+        'auto_reload' => true, // Recompile the template whenever the source code changes
+    ],
+];
