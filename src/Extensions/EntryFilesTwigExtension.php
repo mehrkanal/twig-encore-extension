@@ -1,24 +1,33 @@
 <?php
+/** @noinspection SlowArrayOperationsInLoopInspection */
 
 namespace Mehrkanal\EncoreTwigExtension\Extensions;
 
-use Symfony\Contracts\Service\ResetInterface;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
+use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class EntryFilesTwigExtension extends AbstractExtension implements ResetInterface
+class EntryFilesTwigExtension extends AbstractExtension
 {
-    private array $renderedFiles = [];
+    protected array $defaultAttributes = [];
+    /* https://github.com/symfony/recipes/blob/6f4230fd1081f5d5a1e9b5303c3a8d9e2e1b0691/symfony/webpack-encore-bundle/1.9/config/packages/webpack_encore.yaml#L8 */
+    protected array $defaultLinkAttributes = ['defer' => true];
+    protected array $defaultScriptAttributes = [];
+    private array $renderedFiles;
 
-    private EntrypointLookupInterface $entryPoints;
-
-    public function __construct(EntrypointLookupInterface $entryPoints)
-    {
-        $this->entryPoints = $entryPoints;
+    public function __construct(
+        private EntrypointLookup $entryPoints,
+        private ?EventDispatcherInterface $eventDispatcher = null
+    ) {
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('encore_entry_js_files', [$this, 'getWebpackJsFiles']),
@@ -58,81 +67,43 @@ class EntryFilesTwigExtension extends AbstractExtension implements ResetInterfac
         return $cssFiles;
     }
 
-    public function renderWebpackScriptTags(string $entryName): string
-    {
-        $scriptTags = [];
-        $entryPointLookup = $this->getEntrypointLookup();
-        $integrityHashes = $entryPointLookup->getIntegrityData();
-
-        foreach ($entryPointLookup->getJavaScriptFiles($entryName) as $filename) {
-            $attributes = [];
-            $attributes['src'] = $this->getAssetPath($filename);
-
-            if (isset($integrityHashes[$filename])) {
-                $attributes['integrity'] = $integrityHashes[$filename];
-            }
-
-            $scriptTags[] = sprintf(
-                '<script %s></script>',
-                $this->convertArrayToAttributes($attributes)
-            );
-
-            $this->renderedFiles['scripts'][] = $attributes['src'];
-        }
-
-        return implode('', $scriptTags);
+    public function renderWebpackScriptTags(
+        string $entryName,
+        string $packageName = null,
+        string $entrypointName = '_default',
+        array $attributes = []
+    ): string {
+        return $this->getTagRenderer()
+            ->renderWebpackScriptTags($entryName, $packageName, $entrypointName, $attributes);
     }
 
-    private function getAssetPath(string $assetPath): string
-    {
-        return $assetPath;
+    public function renderWebpackLinkTags(
+        string $entryName,
+        string $packageName = null,
+        string $entrypointName = '_default',
+        array $attributes = []
+    ): string {
+        return $this->getTagRenderer()
+            ->renderWebpackLinkTags($entryName, $packageName, $entrypointName, $attributes);
     }
 
-    private function convertArrayToAttributes(array $attributesMap): string
+    private function getTagRenderer(): TagRenderer
     {
-        return implode(
-            ' ',
-            array_map(
-                function ($key, $value) {
-                    return sprintf('%s="%s"', $key, htmlentities($value));
-                },
-                array_keys($attributesMap),
-                $attributesMap
+        $packages = new Packages(
+            new Package(
+                new JsonManifestVersionStrategy(
+                    __DIR__ . '/../../../../../public/assets/manifest.json'
+                )
             )
         );
-    }
 
-    public function renderWebpackLinkTags(string $entryName): string
-    {
-        $scriptTags = [];
-        $entryPointLookup = $this->getEntrypointLookup();
-        $integrityHashes = $entryPointLookup->getIntegrityData();
-
-        foreach ($entryPointLookup->getCssFiles($entryName) as $filename) {
-            $attributes = [];
-            $attributes['rel'] = 'stylesheet';
-            $attributes['href'] = $this->getAssetPath($filename);
-
-            if (isset($integrityHashes[$filename])) {
-                $attributes['integrity'] = $integrityHashes[$filename];
-            }
-
-            $scriptTags[] = sprintf(
-                '<link %s>',
-                $this->convertArrayToAttributes($attributes)
-            );
-
-            $this->renderedFiles['styles'][] = $attributes['href'];
-        }
-
-        return implode('', $scriptTags);
-    }
-
-    public function reset(): void
-    {
-        $this->renderedFiles = [
-            'scripts' => [],
-            'styles' => [],
-        ];
+        return new TagRenderer(
+            $this->entryPoints,
+            $packages,
+            $this->defaultAttributes,
+            $this->defaultScriptAttributes,
+            $this->defaultLinkAttributes,
+            $this->eventDispatcher
+        );
     }
 }
