@@ -21,7 +21,8 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
    * Note: A Forward Slash is appended after asset_url in case the preceding path does not end on a forward slash
      * i.e. asset_path is `/assets` the url will be `<document_root>/assets/entrypoints.json`
 5. Include `Mehrkanal\EncoreTwigExtension\ConfigProvider::class` into your global config
-6. Include `Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension:class` to your twig extensions config.
+6. Include `Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension:class` to your `['twig']['extensions']` config.
+6. Include `\Symfony\Bridge\Twig\Extension\AssetExtension::class` to your `['twig']['extensions']` config.
 7. Include `Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension:class` to your `['twig']['extensions']` config.
 
 ```php
