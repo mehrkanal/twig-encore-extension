@@ -24,11 +24,7 @@ class TagRenderFactory
             )
          */
         $packages = new Packages(
-            new Package(
-                new JsonManifestVersionStrategy(
-                    dirname(__DIR__, 5) . '/public/assets/manifest.json'
-                )
-            )
+            new Package(new JsonManifestVersionStrategy(dirname(__DIR__, 5) . '/public/assets/manifest.json'))
         );
 
         return new TagRenderer(

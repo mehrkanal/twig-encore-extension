@@ -16,7 +16,11 @@ class GetCssSourceTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('encore_get_css_source', [$this, 'getCssSourceFromEntrypoint'], ['is_safe' => ['html']]),
+            new TwigFunction('encore_get_css_source', fn (string $entryName): string => $this->getCssSourceFromEntrypoint(
+                $entryName
+            ), [
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 
