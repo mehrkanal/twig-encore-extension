@@ -14,10 +14,8 @@ Created for: `Laminas/Mezzio` Applications without native Symfony Kernel.
      * i.e. `.setOutputPath('public/assets')`
    * `setPublicPath()` should be in the folder where the assets are in
      * i.e. `setPublicPath('/assets')`
-4. Make sure to configure `['twig']['asset_url']` to the public path, for example in your [twig.global.php](twig.global.php.dist)
-   * Best be set to: ``/assets/``
-   * If is not configured: The path will be `<DOCUMENT_ROOT>/entrypoints.json`
-   * Otherwise, it is `<DOCUMENTROOT><asset_url>entrypoints.json`
+4. Set `['twig']['asset_url']` to the absulute Path, for example in your [twig.global.php](twig.global.php.dist)
+   * Best be set to: ``/app/public/assets/``
    * Note: A Forward Slash is appended after asset_url in case the preceding path does not end on a forward slash
      * i.e. asset_path is `/assets` the url will be `<document_root>/assets/entrypoints.json`
 5. Include `Mehrkanal\EncoreTwigExtension\ConfigProvider::class` into your global config
@@ -59,7 +57,7 @@ docker run -it -v $PWD:/app -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH
 
 composer up
 composer run stan
-composer run cs
+composer run cf
 ```
 
 ## Useful links:
