@@ -3,7 +3,6 @@
 namespace Mehrkanal\EncoreTwigExtension;
 
 use Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension;
-use Mehrkanal\EncoreTwigExtension\Factories\AAA;
 use Mehrkanal\EncoreTwigExtension\Factories\EntrypointCollectionFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\AssetUrlFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\EntryFilesTwigExtensionFactory;

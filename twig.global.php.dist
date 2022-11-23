@@ -8,7 +8,7 @@ return [
     'twig' => [
         'autoescape' => 'html', // Auto-escaping strategy [html|js|css|url|false]
         'cache_dir' => '/tmp/cache/twig_cache',
-        'assets_url' => '/assets/', // für entrypoints.json
+        'assets_url' => '/app/public/assets/', // für entrypoints.json
         'extensions' => [
             // extension service names or instances
             EntryFilesTwigExtension::class,
