@@ -3,9 +3,9 @@
 namespace Mehrkanal\EncoreTwigExtension;
 
 use Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension;
-use Mehrkanal\EncoreTwigExtension\Factories\EntrypointCollectionFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\AssetUrlFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\EntryFilesTwigExtensionFactory;
+use Mehrkanal\EncoreTwigExtension\Factories\EntrypointCollectionFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\EntryPointLookupFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\GetCssSourceTwigExtensionFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\TagRenderFactory;

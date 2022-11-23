@@ -57,7 +57,7 @@ docker run -it -v $PWD:/app -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH
 
 composer up
 composer run stan
-composer run cs
+composer run cf
 ```
 
 ## Useful links:
