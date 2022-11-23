@@ -8,25 +8,23 @@ use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 
 class EntryPointLookupFactory
 {
-    private const ENTRYPOINTS_JSON = 'entrypoints.json';
-    private const DIRECTORY_SEPERATOR = '/';
+    private const ENTRYPOINT_JSON = 'entrypoints.json';
 
     public function __invoke(ContainerInterface $container): EntrypointLookupInterface
     {
         $config = $container->get('config');
 
-        $path = $_SERVER['DOCUMENT_ROOT'];
-        $path .= $config['twig']['assets_url'] ?? '';
+        $path = $config['twig']['assets_url'] ?? '';
         if (! $this->endsWithSlash($path)) {
-            $path .= self::DIRECTORY_SEPERATOR;
+            $path .= DIRECTORY_SEPARATOR;
         }
-        $path .= self::ENTRYPOINTS_JSON;
+        $path .= self::ENTRYPOINT_JSON;
 
         return new EntrypointLookup($path);
     }
 
     private function endsWithSlash(string $haystack): bool
     {
-        return substr($haystack, -1) === self::DIRECTORY_SEPERATOR;
+        return substr($haystack, -1) === DIRECTORY_SEPARATOR;
     }
 }
