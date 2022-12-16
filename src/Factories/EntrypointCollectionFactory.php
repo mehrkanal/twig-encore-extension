@@ -13,7 +13,7 @@ class EntrypointCollectionFactory
     {
         return new EntrypointLookupCollection(
             new ServiceLocator([
-                '_default' => fn() => $container->build(EntrypointLookup::class),
+                '_default' => fn () => $container->build(EntrypointLookup::class),
             ])
         );
     }
