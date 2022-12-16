@@ -2,19 +2,18 @@
 
 namespace Mehrkanal\EncoreTwigExtension\Factories;
 
-use Psr\Container\ContainerInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 
 class EntrypointCollectionFactory
 {
-    public function __invoke(ContainerInterface $container): EntrypointLookupCollection
+    public function __invoke(ServiceLocatorInterface $container): EntrypointLookupCollection
     {
-        $entrypointLookupCollection = $container->get(EntrypointLookup::class);
         return new EntrypointLookupCollection(
             new ServiceLocator([
-                '_default' => fn () => $entrypointLookupCollection,
+                '_default' => fn () => $container->build(EntrypointLookup::class),
             ])
         );
     }
