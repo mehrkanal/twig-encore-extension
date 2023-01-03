@@ -12,9 +12,16 @@ class AssetUrlFactory
 {
     public function __invoke(ContainerInterface $container): AssetExtension
     {
+        $strict = $container->get('config')['debug'] ?? false;
+
         return new AssetExtension(
             new Packages(
-                new Package(new JsonManifestVersionStrategy(dirname(__DIR__, 5) . '/public/assets/manifest.json'))
+                new Package(
+                    new JsonManifestVersionStrategy(
+                        dirname(__DIR__, 5) . '/public/assets/manifest.json',
+                        strictMode: $strict
+                    )
+                )
             )
         );
     }
