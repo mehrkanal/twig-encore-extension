@@ -1,3 +1,11 @@
+## 4.0.2
+
+- code cleaup
+
+## 4.0.1
+
+- Fix broken Factory
+
 ## 4.0.0
 
 - Update webpack-encore-bundle to ver 2.0
