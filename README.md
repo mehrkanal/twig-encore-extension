@@ -53,7 +53,7 @@ Use in combination with setEntry of Encore Webpack Config.
 ## Stan
 
 ```shell
-docker run -it -v $PWD:/app -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e SSH_AGENT_PID=$SSH_AGENT_PID registry.mehrkanal.com/docker/phpx/cli:8.0-build bash
+docker run -it -v $PWD:/app -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -w /app -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -e SSH_AGENT_PID=$SSH_AGENT_PID registry.mehrkanal.com/docker/phpx/cli:8.1-build bash
 
 composer up
 composer run stan
