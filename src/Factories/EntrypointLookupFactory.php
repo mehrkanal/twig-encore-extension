@@ -4,13 +4,12 @@ namespace Mehrkanal\EncoreTwigExtension\Factories;
 
 use Psr\Container\ContainerInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 
-class EntryPointLookupFactory
+class EntrypointLookupFactory
 {
     private const ENTRYPOINT_JSON = 'entrypoints.json';
 
-    public function __invoke(ContainerInterface $container): EntrypointLookupInterface
+    public function __invoke(ContainerInterface $container): EntrypointLookup
     {
         $config = $container->get('config');
 
