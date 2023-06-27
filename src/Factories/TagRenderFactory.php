@@ -7,6 +7,7 @@ use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 
 class TagRenderFactory
@@ -28,7 +29,7 @@ class TagRenderFactory
         );
 
         return new TagRenderer(
-            $container->get(EntrypointLookup::class),
+            $container->get(EntrypointLookupCollection::class),
             $packages,
             $this->defaultAttributes,
             $this->defaultScriptAttributes,

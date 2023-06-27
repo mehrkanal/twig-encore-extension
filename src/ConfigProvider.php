@@ -6,11 +6,13 @@ use Mehrkanal\EncoreTwigExtension\Extensions\GetCssSourceTwigExtension;
 use Mehrkanal\EncoreTwigExtension\Factories\AssetUrlFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\EntryFilesTwigExtensionFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\EntrypointCollectionFactory;
-use Mehrkanal\EncoreTwigExtension\Factories\EntryPointLookupFactory;
+use Mehrkanal\EncoreTwigExtension\Factories\EntrypointLookupCollectionFactory;
+use Mehrkanal\EncoreTwigExtension\Factories\EntrypointLookupFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\GetCssSourceTwigExtensionFactory;
 use Mehrkanal\EncoreTwigExtension\Factories\TagRenderFactory;
 use Symfony\Bridge\Twig\Extension\AssetExtension;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
 
 class ConfigProvider
@@ -26,7 +28,8 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                EntrypointLookup::class => EntryPointLookupFactory::class,
+                EntrypointLookupCollection::class => EntrypointLookupCollectionFactory::class,
+                EntrypointLookup::class => EntrypointLookupFactory::class,
                 GetCssSourceTwigExtension::class => GetCssSourceTwigExtensionFactory::class,
                 EntryFilesTwigExtension::class => EntryFilesTwigExtensionFactory::class,
                 AssetExtension::class => AssetUrlFactory::class,
