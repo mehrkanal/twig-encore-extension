@@ -10,7 +10,7 @@ include:
      - '/templates/.update-packageserver.yml'
 
 variables:
-  PHP_VERSION: "8.0"
+  PHP_VERSION: "8.1"
 
 stages:
   - precheck
